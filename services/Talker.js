@@ -2,6 +2,13 @@ const Talker = require('../models/Talker');
 
 const HTTP_OK_STATUS = 200;
 
+const TALKER_NOT_FOUNT = {
+  err: {
+    message: 'Pessoa palestrante não encontrada',
+  },
+  status: 404,
+};
+
 const getAll = async () => {
   const result = await Talker.getAll();
   return {
@@ -13,12 +20,7 @@ const getAll = async () => {
 const checkTalker = (talker) => {
   if (!talker) {
     // eslint-disable-next-line no-throw-literal
-    throw {
-      err: {
-        message: 'Pessoa palestrante não encontrada',
-      },
-      status: 404,
-    };
+    throw TALKER_NOT_FOUNT;
   }
 };
 
