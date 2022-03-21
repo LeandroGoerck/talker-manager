@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Talker = require('./controllers/Talker');
-// const Login = require('./controllers/login');
+const User = require('./controllers/User');
 
 const app = express();
 app.use(bodyParser.json());
@@ -19,7 +19,7 @@ app.get('/', (_request, response) => {
 app.get('/talker', Talker.getAll);
 app.get('/talker/:id', Talker.getById);
 
-// app.post('/login', Login);
+app.post('/login', User.login);
 
 app.use((err, _req, res, _next) => {
   const { status, err: { message } } = err;

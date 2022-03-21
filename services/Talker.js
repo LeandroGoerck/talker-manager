@@ -1,4 +1,3 @@
-/* eslint-disable no-throw-literal */
 const Talker = require('../models/Talker');
 
 const HTTP_OK_STATUS = 200;
@@ -13,6 +12,7 @@ const getAll = async () => {
 
 const checkTalker = (talker) => {
   if (!talker) {
+    // eslint-disable-next-line no-throw-literal
     throw {
       err: {
         message: 'Pessoa palestrante não encontrada',
