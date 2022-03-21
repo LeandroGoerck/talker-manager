@@ -17,14 +17,13 @@ app.get('/', (_request, response) => {
 });
 
 app.get('/talker', Talker.getAll);
-
-// app.get('/talker/:id', Talker.getTalById);
+app.get('/talker/:id', Talker.getById);
 
 // app.post('/login', Login);
 
 app.use((err, _req, res, _next) => {
-  const { status, err: { code, message } } = err;
-  res.status(status).json({ err: { code, message } });
+  const { status, err: { message } } = err;
+  res.status(status).json({ message });
 });
 
 app.listen(PORT, () => {

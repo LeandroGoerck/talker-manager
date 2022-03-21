@@ -6,6 +6,12 @@ const getAll = rescue(async (req, res) => {
   res.status(status).json(result);
 });
 
+const getById = rescue(async (req, res) => {
+  const { id } = req.params;
+  const { status, talker } = await Talker.getById(id);
+  res.status(status).json(talker);
+});
+
 // function getTalkerById(req, res) {
 //   fs.readFile(FILE_NAME, 'utf8')
 //   .then((JSONstring) => JSON.parse(JSONstring))
@@ -20,5 +26,5 @@ const getAll = rescue(async (req, res) => {
 
 module.exports = {
   getAll,
-  // getTalkerById,
+  getById,
 };
