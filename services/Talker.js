@@ -118,17 +118,22 @@ const getNextId = (talkerList) => {
   return nextId;
 };
 
+const createNewTalkerWithId = (talker, id) => {
+  const newTalker = {
+    name: talker.name,
+    age: talker.age,
+    id,
+    talk: talker.talk,
+  };
+  return newTalker;
+};
+
 const add = async (talker, token) => {
   checkToken(token);
   checkTalkerInfo(talker);
   const talkerList = await Talker.getAll();
   const nextId = getNextId(talkerList);
-  const newTalker = {
-    name: talker.name,
-    age: talker.age,
-    id: nextId,
-    talk: talker.talk,
-  };
+  const newTalker = createNewTalkerWithId(talker, nextId);
   console.log(talkerList);
   talkerList.push(newTalker);
   await Talker.add(talkerList);
