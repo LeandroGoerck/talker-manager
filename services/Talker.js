@@ -156,9 +156,20 @@ const edit = async (talker, token) => {
   };
 };
 
+const remove = async (id, token) => {
+  checkToken(token);
+  const talkerList = await Talker.getAll();
+  const newTalerList = talkerList.map((talker) => talker.id !== id);
+  await Talker.writeFile(newTalerList);
+  return {
+    status: 204,
+  };
+};
+
 module.exports = {
   getAll,
   getById,
   add,
   edit,
+  remove,
 };

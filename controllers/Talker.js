@@ -27,9 +27,17 @@ const edit = rescue(async (req, res) => {
   res.status(status).json(editedTalker);
 });
 
+const remove = rescue(async (req, res) => {
+  const token = req.headers.authorization;
+  const { id } = req.params;
+  const { status } = await Talker.remove(id, token); 
+  res.status(status).json();
+});
+
 module.exports = {
   getAll,
   getById,
   add,
   edit,
+  remove,
 };
