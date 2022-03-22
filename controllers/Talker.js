@@ -15,12 +15,14 @@ const getById = rescue(async (req, res) => {
 const add = rescue(async (req, res) => {
   const token = req.headers.authorization;
   const { name, age, talk } = req.body;
-  const talker = {
-    name,
-    age,
-    talk,
-  };
-  const { status, newTalker } = await Talker.add(talker, token); 
+  const { status, newTalker } = await Talker.add(name, age, talk, token); 
+  res.status(status).json(newTalker);
+});
+
+const edit = rescue(async (req, res) => {
+  const token = req.headers.authorization;
+  const { name, age, talk } = req.body;
+  const { status, newTalker } = await Talker.edit(name, age, talk, token); 
   res.status(status).json(newTalker);
 });
 
@@ -28,4 +30,5 @@ module.exports = {
   getAll,
   getById,
   add,
+  edit,
 };

@@ -102,13 +102,13 @@ const checkIfTalkOrFieldsAreEmpty = (talk) => {
   }
 };
 
-const checkTalkerInfo = (talker) => {
-  checkIfTalkOrFieldsAreEmpty(talker.talk);
-  checkTalkerName(talker.name);
-  checkTalkerAge(talker.age);
-  checkIfRateIsNumber(talker.talk.rate);
-  checkIfRateIsBetween1And5(talker.talk.rate);
-  checkWatchedAtFormat(talker.talk.watchedAt);
+const checkTalkerInfo = (name, age, talk) => {
+  checkIfTalkOrFieldsAreEmpty(talk);
+  checkTalkerName(name);
+  checkTalkerAge(age);
+  checkIfRateIsNumber(talk.rate);
+  checkIfRateIsBetween1And5(talk.rate);
+  checkWatchedAtFormat(talk.watchedAt);
 };
 
 const getNextId = (talkerList) => {
@@ -118,23 +118,22 @@ const getNextId = (talkerList) => {
   return nextId;
 };
 
-const createNewTalkerWithId = (talker, id) => {
+const createNewTalkerWithId = (name, age, talk, id) => {
   const newTalker = {
-    name: talker.name,
-    age: talker.age,
+    name,
+    age,
     id,
-    talk: talker.talk,
+    talk,
   };
   return newTalker;
 };
 
-const add = async (talker, token) => {
+const add = async (name, age, talk, token) => {
   checkToken(token);
-  checkTalkerInfo(talker);
+  checkTalkerInfo(name, age, talk);
   const talkerList = await Talker.getAll();
   const nextId = getNextId(talkerList);
-  const newTalker = createNewTalkerWithId(talker, nextId);
-  console.log(talkerList);
+  const newTalker = createNewTalkerWithId(name, age, talk, nextId);
   talkerList.push(newTalker);
   await Talker.add(talkerList);
   return {
