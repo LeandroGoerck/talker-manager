@@ -13,7 +13,7 @@ function getById(id) {
   .then((data) => data.find((talker) => talker.id === parseInt(id, 10)));
 }
 
-function add(newTalker) {
+function writeFile(newTalker) {
   console.log('newTalker', newTalker);
   fs.writeFile(FILE_NAME, JSON.stringify(newTalker))
   .then(() => {
@@ -28,5 +28,5 @@ function add(newTalker) {
 module.exports = {
   getAll,
   getById,
-  add,
+  writeFile,
 };

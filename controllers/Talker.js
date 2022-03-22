@@ -22,8 +22,9 @@ const add = rescue(async (req, res) => {
 const edit = rescue(async (req, res) => {
   const token = req.headers.authorization;
   const { name, age, talk } = req.body;
-  const { status, newTalker } = await Talker.edit(name, age, talk, token); 
-  res.status(status).json(newTalker);
+  const { id } = req.params;
+  const { status, editedTalker } = await Talker.edit({ name, age, talk, id }, token); 
+  res.status(status).json(editedTalker);
 });
 
 module.exports = {

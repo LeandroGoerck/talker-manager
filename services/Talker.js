@@ -97,7 +97,7 @@ const checkWatchedAtFormat = (watchedAt) => { // dd/mm/aaaa
 }; 
 
 const checkIfTalkOrFieldsAreEmpty = (talk) => {
-  if (!talk || !talk.watchedAt || !talk.rate) {
+  if (!talk || !talk.watchedAt || talk.rate === undefined) {
     throw ERR.TALK_IS_MANDATORY_AND_KEYS_MUST_NOT_BE_EMPTY;
   }
 };
@@ -122,7 +122,7 @@ const createNewTalkerWithId = (name, age, talk, id) => {
   const newTalker = {
     name,
     age,
-    id,
+    id: Number(id),
     talk,
   };
   return newTalker;
@@ -135,10 +135,24 @@ const add = async (name, age, talk, token) => {
   const nextId = getNextId(talkerList);
   const newTalker = createNewTalkerWithId(name, age, talk, nextId);
   talkerList.push(newTalker);
-  await Talker.add(talkerList);
+  await Talker.writeFile(talkerList);
   return {
     status: 201,
     newTalker,
+  };
+};
+
+const edit = async (talker, token) => {
+  checkToken(token);
+  const { name, age, talk, id } = talker;
+  checkTalkerInfo(name, age, talk);
+  const talkerList = await Talker.getAll();
+  const editedTalker = createNewTalkerWithId(name, age, talk, id);
+  talkerList[(id - 1)] = editedTalker;
+  await Talker.writeFile(talkerList);
+  return {
+    status: 200,
+    editedTalker,
   };
 };
 
@@ -146,4 +160,5 @@ module.exports = {
   getAll,
   getById,
   add,
+  edit,
 };
