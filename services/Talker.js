@@ -166,10 +166,21 @@ const remove = async (id, token) => {
   };
 };
 
+const search = async (searchTerm, token) => {
+  checkToken(token);
+  const talkerList = await Talker.getAll();
+  const talkerFound = talkerList.map((talker) => talker.name.includes(searchTerm) && talker);
+  return {
+    status: 200,
+    talkerFound,
+  };
+};
+
 module.exports = {
   getAll,
   getById,
   add,
   edit,
   remove,
+  search,
 };

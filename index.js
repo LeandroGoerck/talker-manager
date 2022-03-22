@@ -17,6 +17,9 @@ app.get('/', (_request, response) => {
 });
 
 app.get('/talker', Talker.getAll);
+
+app.get('/talker/search', Talker.search);
+
 app.get('/talker/:id', Talker.getById);
 
 app.post('/login', User.login);
@@ -26,6 +29,7 @@ app.post('/talker', Talker.add);
 app.put('/talker/:id', Talker.edit);
 
 app.delete('/talker/:id', Talker.remove);
+
 
 app.use((err, _req, res, _next) => {
   const { status, err: { message } } = err;

@@ -34,10 +34,24 @@ const remove = rescue(async (req, res) => {
   res.status(status).json();
 });
 
+const search = rescue(async (req, res) => {
+  const token = req.headers.authorization;
+  const { q } = req.query;
+  const { status, talkerFound } = await Talker.search(q, token);
+  res.status(status).json(talkerFound);
+});
+
+// app.get('/recipes/search', function (req, res) {
+//   const { name } = req.query;
+//   const filteredRecipes = recipes.filter((r) => r.name.includes(name));
+//   res.status(200).json(filteredRecipes);
+// });
+
 module.exports = {
   getAll,
   getById,
   add,
   edit,
   remove,
+  search,
 };
