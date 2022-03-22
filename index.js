@@ -30,7 +30,6 @@ app.put('/talker/:id', Talker.edit);
 
 app.delete('/talker/:id', Talker.remove);
 
-
 app.use((err, _req, res, _next) => {
   const { status, err: { message } } = err;
   res.status(status).json({ message });
