@@ -4,7 +4,7 @@ const User = require('../services/User');
 const login = rescue(async (req, res) => {
   const { email, password } = req.body;
   const { status, token } = await User.login(email, password);
-  console.log({ token });
+  console.log('login', token);
   res.status(status).json(token);
 });
 

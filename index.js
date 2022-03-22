@@ -21,6 +21,8 @@ app.get('/talker/:id', Talker.getById);
 
 app.post('/login', User.login);
 
+app.post('/talker', Talker.add);
+
 app.use((err, _req, res, _next) => {
   const { status, err: { message } } = err;
   res.status(status).json({ message });

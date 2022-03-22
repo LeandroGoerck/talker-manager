@@ -13,7 +13,20 @@ function getById(id) {
   .then((data) => data.find((talker) => talker.id === parseInt(id, 10)));
 }
 
+function add(newTalker) {
+  console.log('newTalker', newTalker);
+  fs.writeFile(FILE_NAME, JSON.stringify(newTalker))
+  .then(() => {
+    console.log('Arquivo escrito com sucesso!');
+  })
+  .catch((err) => {
+    console.error(`Erro ao escrever o arquivo: ${err.message}`);
+  });
+  return newTalker;
+}
+
 module.exports = {
   getAll,
   getById,
+  add,
 };
