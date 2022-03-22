@@ -41,12 +41,6 @@ const search = rescue(async (req, res) => {
   res.status(status).json(talkerFound);
 });
 
-// app.get('/recipes/search', function (req, res) {
-//   const { name } = req.query;
-//   const filteredRecipes = recipes.filter((r) => r.name.includes(name));
-//   res.status(200).json(filteredRecipes);
-// });
-
 module.exports = {
   getAll,
   getById,
